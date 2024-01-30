@@ -1,0 +1,57 @@
+Ansible:
+Setup ansible
+1.Install ansible on Ubuntu22.04# devopsworkshop lo ansible lo undi
+Check once with 
+ansible --version
+2.add jekins and maven series as managed nodes to ansible
+goto ansible server
+cd /opt
+ls
+Create an inventory file
+**********""
+cat  > hosts
+vi hosts
+[jenkins-master]
+10.1.1.139
+
+[jenkins-master:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/opt/dpp.pem
+
+[jenkins-slave]
+10.1.1.201
+
+[jenkins-slave:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/opt/dpp.pem
+****************
+We install mobile extra and local pem file transfer into mobile extra 
+See this pem we they stored then trasfer into opt in ansible server
+Cd /home/ubuntu 
+mv dpp.pem  /opt   #copy
+ls -ltr  #/opt
+chmod 400 dpp.pem #give permission for read permission only/opt folder lo undi
+ansible all -i hosts -m ping # connecting purpose
+
+Vimp Jenkins and master hosts lo one by rayali
+Checking one by one cheyali
+$$$$$$$$$$$$$
+
+Day3: 
+Write an ansible playbook to install Jenkins server by using ansible server
+GitHub lo playbook Jenkins 
+/Opt:  vi jenkins-master-setup.yml
+ansible-playbook -i /opt/hosts jenkins-master-setup.yml  --check #checking dry run
+ansible-playbook -i /opt/hosts jenkins-master-setup.yml 
+Checking in Jenkins server install are not
+##############
+
+Jenkins  slaves install {maven installation}
+Playbook GitHub lo undi
+/Opt:
+vi jenkins-salve-setup.yml
+Excute 
+ansible-playbook -i /opt/hosts jenkins-salve-setup.yml  --check #checking dry run
+ansible-playbook -i /opt/hosts jenkins-salve-setup.yml 
+$$$$$$$$$$$$$$$$$$$$
+Theme ansible with install Jenkins and Jenkins slave....happy to say
