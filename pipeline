@@ -1,0 +1,119 @@
+Jenkins job through pipeline
+
+Create a job using pipeline
+Pipeline script
+    Declarative pipeline
+    Scripted pipeline 
+I will write a declarative pipeline
+pipeline {
+    Agents {
+           node {
+                  label   'maven'
+             }
+      }
+      Stages {
+              Stages('hello') { instaed clone-code
+                    Setps {
+                           echo  `hello narayana `
+}
+}
+}
+}
+Save it and run  job 
+How to get code form git to Jenkins pipeline 
+pipeline {
+agent {
+node {
+label 'maven'
+}
+}
+
+stages {
+
+stage('Clone-code') {
+
+steps {
+
+git branch: 'main', url: 'https://github.com/ravdy/tweet-trend.git'
+}
+}
+
+}
+
+}
+Checking slave 
+ls 
+Jenkins
+ls
+Cd workspace
+ls 
+I will be available everything 
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Pipeline script through SCM
+SCM  git
+Script path: Jenkinsfile  I may be available in the git folder
+Res url : Jenkins folder url in git
+Branch : */main
+Script path: Jenkinsfile
+Save it as run
+&&&&&&&&&&&&&&&&&&&&&&&
+Multiple clone code git to Jenkins
+pipeline {
+agent {
+node {
+label 'maven'
+}
+}
+environment {
+PATH = "/opt/apache-maven-3.9.2/bin:$PATH"
+stages {
+stage("build") {
+steps {
+sh 'mvn clen deploy'
+}
+}
+}
+}
+}
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& create a token in git hub
+Managed Jenkins managed credentials choose system - add domain - add credentials
+Username with password
+Password: token password
+Id : GitHub Cred
+Create it 
+Then add in pipeline script
+Credentials adding --ravdy
+&&&&&&&&-&&&&&&&&&&&&&&&&&&&&&&&&
+Multiple branch pipeline
+Create a job in multiple branch pipeline
+branch source
+git  
+Given url
+Credentials ravdy/******
+Build configuration
+mode 
+By Jenkinsfile
+Script path 
+Jenkinsfile 
+Run it
+Adding another branch
+Click the scan multiple pipeline
+&&&&&&&&
+Setup wedhook in GitHub 
+# Enable Webhook
+1. Install "multibranch scan webhook trigger" plugin  
+    From dashboard --> manage jenkins --> manage plugins --> Available Plugins  
+    Search for "Multibranch Scan webhook Trigger" plugin and install it. 
+
+2. Go to multibranch pipeline job
+     job --> configure --> Scan Multibranch Pipeline Triggers --> Scan Multibranch Pipeline Triggers  --> Scan by webhook   
+     Trigger token: <token_name>
+
+3. Add webhook to GitHub repository
+   Github repo --> settings --> webhooks --> Add webhook  
+   Payload URl: <jenkins_IP>:8080/multibranch-webhook-trigger/invoke?token=<token_name>  
+   Content type: application/json  
+   Which event would you like to trigger this webhook: just the push event 
+
+
+Once it is enabled make changes to source to trigger the build.
