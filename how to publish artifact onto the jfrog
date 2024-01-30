@@ -1,0 +1,27 @@
+how to publish artifact onto the jfrog 
+JFrog Artifactory integration with jenkins
+how to create an jfrog goto https:jfrog.com
+then you visit a jfrog Arttifactory then click on strial for 14 days
+we are goto cloud then give name and company hosting we choose aws click on try it then given the password
+craete maven repo continue 
+then later back home click on artifacts
+
+genearated access key tocken and username for maven
+
+click on setting then later click on user management under we have option called as access key tocken then later generate tocken 
+tockenscope : admin
+username:accourding jfrog account mail id
+lets generate copy the key 
+managed jenkins-credentials-click on global-add credentials-over here
+go to  username with password : copy key
+then install plugins serach artifactory
+downloaded it.
+
+
+update jenkinsfile with jar publish stage
+search for the working with pipeline in jfrog
+jfrog url def registry = 'https://valaxy05.jfrog.io'
+collect location job in file in jenkins workspace £jar file
+collect jfrog credentials in jenkins £ id  credentialsId:"artfiact-cred"
+this is micro services coverto image through docker
+
