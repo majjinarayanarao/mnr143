@@ -1,0 +1,75 @@
+Devops :
+Day1:
+First, install AWS CLI. Based on the window, we are provided with a link to download the AWS CLI. 
+Commands are also available to install AWS CLI in PowerShell.
+After you install AWS CLI, once we check Git Bash, check.
+Command :aws configure
+It will show the AWS cil version
+Then definitely user creation of iam role in AWS 
+User ,add users, permission,attachments, giving ec2,s3, administrator Access then user created
+Goto you create a user inside then open it security credentials then create access keys.
+
+______&&&&&&&&&&&&&&&&&&&&_______
+
+DAY2:
+Terraform:
+&&&&&&--------&-&&&&&&&_&&&&&-&&&&&&&
+  
+Git account: GitHub.com/ravdy
+Devops workshop will have everything available rep
+
+I have to create a folder with {destop+-project} then go for gitbash or powershell
+Git clone: GitHub.com/ravdy
+***************
+How to use a GitHub rep
+
+Tweet-trend-new rep is used for initial project 
+Used for git 
+How to write the first terraform file:
+
+Provider "AWS" {
+Project = " my projecr6" #optinal
+region = " us-central1"
+}
+Resources block what we create like ec2,s3,voc etc..
+
+resource "aws_instance" "wed" {
+ami = "ami-a1b2c3d4"
+instance_type = "t2.micro"
+keypair = "mnr.143"
+}
+:::::::::::;;;:::::::::::::::::::::
+Visual studio 
+Install terraform plugin and hashicrop terraform
+Write acode ec2 
+Save it as an  inside project {terraform,v1-ec2.tf}
+.......
+How to execute terraform ec2 file:
+First of all the goto folder by  using  gitbash or powershell 
+Copy path using where the file stored.
+Terraform init 
+Terraform validate
+Terraform plan
+Terraform apply
+Terraform destroy
+:::::::::::::::::::::::
+Terraform manifest file along with securitygroup:
+Complete
+Vi gitinore 
+Git  gitinore 
+*/.tfstate
+*/.tfstate.*
+*/.terraform/
+**/terraform.lock.hcl
+Git status
+Git add .
+Git  commit - m "hello*
+Git push origin
+How to create multiple instances 
+resource "aws_instance" "demo-server" { ami "ami-022e1a32d3f742bd8"
+
+instance_type = "t2.micro"
+
+key_name = "dpp"
+
+//security_groups = [ "demo-sg" ]
