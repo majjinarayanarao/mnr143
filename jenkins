@@ -1,0 +1,109 @@
+---
+- name: Install Jenkins
+  hosts: your_target_server  # Replace with the appropriate server or group of servers
+  become: true  # Run tasks as sudo
+
+  tasks:
+    - name: Update package lists
+      apt:
+        update_cache: yes
+
+    - name: Install OpenJDK (Java)
+      apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Add Jenkins APT key
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        state: present
+
+    - name: Add Jenkins APT repository
+      apt_repository:
+        repo: deb http://pkg.jenkins.io/debian-stable binary/
+        state: present
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+        update_cache: yes
+
+    - name: Start Jenkins service
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+
+Firsr slave
+---
+- hosts: jenkins-slave
+  become: true
+  tasks:
+  - name: Update Ubuntu repo and cache
+    become: yes
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+      force: yes
+
+  - name: install java
+    apt:
+      name: openjdk-11-jre
+      state: present
+
+  - name: download maven packages
+    get_url:
+      url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
+      dest: /opt
+
+  - name: extract maven packages
+    unarchive:
+      src: /opt/apache-maven-3.9.6-bin.tar.gz
+      dest: /opt
+      remote_src: yes
+Second slave:
+---
+- hosts: jenkins-slave
+  become: true
+  tasks:
+    - name: Update package lists
+      apt:
+        update_cache: yes
+
+    - name: Install Java
+      apt:
+        name: openjdk-11-jre
+        state: present
+
+    - name: Download Maven packages
+      get_url:
+        url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
+        dest: /opt
+
+    - name: Extract Maven packages
+      unarchive:
+        src: /opt/apache-maven-3.9.6-bin.tar.gz
+        dest: /opt
+        remote_src: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker services
+      service:
+        name: docker
+        state: started
+
+    - name: Give 777 permissions on /var/run/docker.sock
+      file:
+        path: /var/run/docker.sock
+        state: file
+        mode: 0777
+ - name: start docker on boot time 
+    service: 
+      name: docker 
+      enabled: yes 
+      workspaces:
