@@ -1,0 +1,75 @@
+main.tf:
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_instance" "example" {
+    ami = var.ami_value
+    instance_type = var.instance_type_value
+    subnet_id = var.subnet_id_value
+}
+terraform.tfvars:
+
+ami_value = "ami-0c84181f02b974bc3"
+instance_type_value = "t2.micro"
+subnet_id_value = "subnet-0ef595e054c255a7e"
+output.tf:
+ output "public-ip-address" {
+  value = aws_instance.example.public_ip
+}
+variable.tf:
+
+variable"ami_value" {
+    description = "value for the ami"
+or default = "t2.micro"
+}
+
+variable "instance_type_value" {
+    description = "value for instance_type"
+}
+
+variable "subnet_id_value" {
+    description = "value for the subnet_id"
+}
+then workspace creation:
+main.tf:
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_instance" "example" {
+    ami = var.ami_value
+    instance_type = lookup(var.instance_type_value, terraform.workspace)
+    subnet_id = var.subnet_id_value
+}
+output.tf:
+ output "public-ip-address" {
+  value = aws_instance.example.public_ip
+
+}
+variable.tf:
+variable "ami_value" {
+    description = "value for the ami"
+}
+
+
+variable "subnet_id_value" {
+    description = "value for the subnet_id"
+}
+
+variable "instance_type_value" {
+  description = "value"
+  type = map(string)
+
+  default = {
+    "dev" = "t2.micro"
+    "stage" = "t2.medium"
+    "prod" = "t2.xlarge"
+  }
+}
+terraform workspace new stage
+terraform workspace new prod
+terraform workspace new dev
+switch
+ terraform workspace select dev
