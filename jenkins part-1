@@ -2,8 +2,9 @@ Jenkins:
 Understand the score code used in the project 
 Tweet-trends available
 Three files in the folder
-.gitignore wish to ignore which file
-Readme.md  #how to specific project
+src
+.gitignore wish to ignore which file ./target/*
+Readme.md  #how to specific project detail about project
 Pom.xml # code app install 
 Src folder
 Main #
