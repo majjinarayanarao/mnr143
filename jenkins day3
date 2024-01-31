@@ -7,42 +7,43 @@ src
 Readme.md  #how to specific project detail about project
 Pom.xml # code app install 
 Src folder
-Main #
+Main  and test folder available
+in main folder:
 1.resources #what are contains application
 #server.port=8000
-2.java/com/valaxy/demo
+2.java/com/valaxy/demo:
 controller _actual logic available 
 Test #this folder contains test case
 ###################
 
-Setup master and slave configuration
+Setup master and slave configuration 
 1.add credentials
 2.add nod
 Add Credentials
-
+ 
 1. Manage Jenkins --> Manage Credentials --> System --> Global credentials --> Add credentials
 
 2. Provide the below info to add credentials
-kind: ssh username with private key username
+kind: ssh username with private key username 
 Scope: Global
 ID: maven_slave-cred
 Username:
-ec2-user
-private key: dpo.pem key content
+ec2-user or ubuntu
+private key: dpo.pem key content madam.pem copy key into jenkins
 Terminal through getting password
 Command #
-Cat initialAdminPassword
-Add node
+ jenkins login @ Cat initialAdminPassword
+maven add to jenkins server by using jenkins @Add node
 
 Follow the below setups to add a new slave node to the jenkins#l7
 
-1. Goto Manage Jenkins --> Manage nodes and clouds --> New node --> Permanent Agent
+1. Goto Manage Jenkins --> Manage nodes and clouds --> New node(maven-slave) --> Permanent Agent
 
 2. Provide the below info to add the node
 
-Number of executors: 3
+Number of executors: 3 how many number jobs run randomly 
 
-Remote root directory: /home/ec2-user/jenkins
+Remote root directory: /home/ec2-user/jenkins  it means workspace 
 
 Labels: maven
 
@@ -55,15 +56,18 @@ Credentials: <Jenkins_Slave_Credentials>
 Host Key Verification Strategy: Non verifying Verification Strategy
 Availability: Keep this agent online as much as possible
 Login in to Jenkins slaves (checking)
+pwd
+/home/ubuntu
 ls
 Cd Jenkins
-Ls
-Available remoting remoting.jar
+ls
+remoting remoting.jar
 
 ###############
 Create a job using Jenkins with help of slaves
 freestyle - restric where this project can be run
-maven # label
+resrict ehen this projrct can be run
+label expression: maven # label
 Buildsetps
 Exute shell 
 Echo"hello " >> /home/ec2-user/maven.txt
