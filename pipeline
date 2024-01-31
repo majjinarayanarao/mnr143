@@ -78,6 +78,7 @@ sh 'mvn clen deploy'
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& create a token in git hub
 Managed Jenkins managed credentials choose system - add domain - add credentials
 Username with password
+username: git account
 Password: token password
 Id : GitHub Cred
 Create it 
@@ -86,15 +87,11 @@ Credentials adding --ravdy
 &&&&&&&&-&&&&&&&&&&&&&&&&&&&&&&&&
 Multiple branch pipeline
 Create a job in multiple branch pipeline
-branch source
-git  
-Given url
+branch source{git  Given url}
 Credentials ravdy/******
 Build configuration
-mode 
-By Jenkinsfile
-Script path 
-Jenkinsfile 
+mode {By Jenkinsfile}
+Script path {Jenkinsfile} 
 Run it
 Adding another branch
 Click the scan multiple pipeline
@@ -110,7 +107,7 @@ Setup wedhook in GitHub
      Trigger token: <token_name>
 
 3. Add webhook to GitHub repository
-   Github repo --> settings --> webhooks --> Add webhook  
+   Github repo --> settings --> webhooks --> Add webhook  donot goto main account settings
    Payload URl: <jenkins_IP>:8080/multibranch-webhook-trigger/invoke?token=<token_name>  
    Content type: application/json  
    Which event would you like to trigger this webhook: just the push event 
