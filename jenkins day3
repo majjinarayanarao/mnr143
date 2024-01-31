@@ -70,4 +70,15 @@ resrict ehen this projrct can be run
 label expression: maven # label
 Buildsetps
 Exute shell 
-Echo"hello " >> /home/ec2-user/maven.txt
+echo "hello " >> /home/ubuntu/maven.txt
+echo"hello " >> /home/ec2-user/maven.txt
+
+output:
+Started by user admin
+Running as SYSTEM
+Building remotely on maven-slave (maven) in workspace /home/ubuntu/jenkins/workspace/ma
+[ma] $ /bin/sh -xe /tmp/jenkins12485098896171752331.sh
++ echo hello 
+Finished: SUCCESS
+then will be see file in the jenkins slave
+maven.txt
