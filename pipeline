@@ -6,12 +6,12 @@ Pipeline script
     Scripted pipeline 
 I will write a declarative pipeline
 pipeline {
-    Agents {
+    Agents { // which system run the code
            node {
                   label   'maven'
              }
       }
-      Stages {
+      Stages { 
               Stages('hello') { instaed clone-code
                     Setps {
                            echo  `hello narayana `
@@ -49,6 +49,7 @@ Cd workspace
 ls 
 I will be available everything 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+jenkins file copy into git repo.
 Pipeline script through SCM
 SCM  git
 Script path: Jenkinsfile  I may be available in the git folder
@@ -80,10 +81,10 @@ Managed Jenkins managed credentials choose system - add domain - add credentials
 Username with password
 username: git account
 Password: token password
-Id : GitHub Cred
+Id : GitHub_Cred
 Create it 
 Then add in pipeline script
-Credentials adding --ravdy
+adding in a pipeline job Credentials adding --ravdy
 &&&&&&&&-&&&&&&&&&&&&&&&&&&&&&&&&
 Multiple branch pipeline
 Create a job in multiple branch pipeline
