@@ -96,8 +96,9 @@ Script path {Jenkinsfile}
 Run it
 Adding another branch
 Click the scan multiple pipeline
+then click the mutiple scan log then see total ouput
 &&&&&&&&
-Setup wedhook in GitHub 
+Setup wedhook in GitHub  used for continuous change git it will automatically build the job
 # Enable Webhook
 1. Install "multibranch scan webhook trigger" plugin  
     From dashboard --> manage jenkins --> manage plugins --> Available Plugins  
