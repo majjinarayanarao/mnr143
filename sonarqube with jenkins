@@ -1,16 +1,18 @@
+introduction :
+set up sonaraube account and add sonar credentials :
 Sonarqube with Jenkins
-Create an account at https://sonarcloud.io
+Create an account at https://sonarcloud.io { login into sonaraube based on github }
 Generate an authentication token on sonarqube
 Create credentials for tokens in the Jenkins 
 ## SonarQube Configuration 
-
+starts:
 1. Create Sonar cloud account on https://sonarcloud.io
 2. Generate an Authentication token on SonarQube
 Goto sonarcloud
     Account --> my account --> Security --> Generate Tokens 
 660b60eb9ebd83e70c7d59454f7b81d394cf9eaf
 
-3. On Jenkins create credentials 
+3. On Jenkins create credentials  add in credentials sonarqube 
    Manage Jenkins --> manage credentials --> system --> Global credentials --> add credentials
 Kind:Secret text
 secret: tocken-key
@@ -21,26 +23,30 @@ Then create it
     Manage Jenkins --> Available plugins 
     Search for sonarqube scanner
 
-5. Configure sonarqube server 
+5. Configure sonarqube server "system"
    Manage Jenkins --> Configure System --> sonarqube server 
    Add Sonarqube server 
-   - Name: sonar-server
+   - Name: sonar-server {sonarqube-server}
    - Server URL: https://sonarcloud.io/
    - Server authentication token: sonarqube-key
 
-6. Configure sonarqube scanner 
+6. Configure sonarqube scanner "tool"
    Manage Jenkins --> Global Tool configuration --> Sonarqube scanner 
    Add sonarqube scanner 
    - Sonarqube scanner: sonar-scanner
 $$$$$$$$$$$$$
-Create sonarqube properties file
+Create sonarqube properties file serach google 
 Goto sonarcloud
 Create a new organisation in sonar qube
 Name : valaxy01
 Key: valaxy01-key
 choose a plan
 Free plan
-Anlaze project 
+click the Anlaze project 
+organization name:mnr143
+projecct key :mnr143-key_maa
+project name : maa
+organiztion key:mnr143_key
 Orginzation valaxy01
 Display Name: tweettrnd #name giving
 Project- key :valaxy01-key_twittertend
