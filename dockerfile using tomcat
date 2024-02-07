@@ -28,3 +28,5 @@ WORKDIR /usr/local/tomcat/webapps.dist
 RUN cp -R * ../webapps
 WORKDIR /usr/local/tomcat
 COPY ./*.war /usr/local/tomcat/webapps
+nv docker folder lo dockerfile plus war file undali
+build job shh server lo //opt//docker save it run it
