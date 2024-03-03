@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Define your environment variables here
+        DOCKER_REGISTRY_CREDENTIALS = 'docker-credentials'
+        DOCKER_IMAGE = 'your-docker-image-name'
+        ECR_REPO = 'YOUR_ECR_REPO'
+        AWS_REGION = 'YOUR_AWS_REGION'
+        CLUSTER_NAME = 'YOUR_CLUSTER_NAME'
+        NAMESPACE = 'YOUR_NAMESPACE'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Build Maven project
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t $DOCKER_IMAGE .'
+
+                    // Login to ECR
+                    withCredentials([usernamePassword(credentialsId: DOCKER_REGISTRY_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $AWS_REGION"
+                    }
+
+                    // Tag and push Docker image to ECR
+                    sh "docker tag $DOCKER_IMAGE:latest $AWS_REGION/$ECR_REPO:latest"
+                    sh "docker push $AWS_REGION/$ECR_REPO:latest"
+                }
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                script {
+                    // Update kubeconfig to access EKS cluster
+                    withAWS(region: AWS_REGION, credentials: 'aws-credentials') {
+                        sh "aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME"
+                    }
+
+                    // Deploy to EKS
+                    sh "kubectl apply -f kubernetes/deployment.yaml --namespace=$NAMESPACE"
+                }
+            }
+        }
+    }
+}
