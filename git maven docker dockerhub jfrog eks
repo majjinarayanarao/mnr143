@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'dockerhub-credentials'
+        DOCKER_IMAGE_NAME = 'your-docker-image-name'
+        DOCKERHUB_REPO = 'your-dockerhub-repo'
+        AWS_REGION = 'your-aws-region'
+        EKS_CLUSTER_NAME = 'your-eks-cluster-name'
+        NAMESPACE = 'your-namespace'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Build Maven project
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t $DOCKER_IMAGE_NAME .'
+                    
+                    // Login to Docker Hub
+                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
+                    }
+
+                    // Tag and push Docker image to Docker Hub
+                    sh "docker tag $DOCKER_IMAGE_NAME $DOCKERHUB_REPO/$DOCKER_IMAGE_NAME:latest"
+                    sh "docker push $DOCKERHUB_REPO/$DOCKER_IMAGE_NAME:latest"
+                }
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                script {
+                    // Update kubeconfig to access EKS cluster
+                    withAWS(region: AWS_REGION, credentials: 'aws-credentials') {
+                        sh "aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME"
+                    }
+
+                    // Pull Docker image from Docker Hub
+                    sh "kubectl apply -f kubernetes/deployment.yaml --namespace=$NAMESPACE"
+                }
+            }
+        }
+    }
+}
