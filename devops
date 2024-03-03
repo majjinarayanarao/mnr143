@@ -1,0 +1,19 @@
+sonarqube
+jfrog 
+real time 
+build and push to jfrog artifactory
+git->maven->jfrog
+static code analysis using sonarqube
+git->maven->sonarqube jenkins,maven,sonarqube,git installation
+build and push to jfrog and deploy to tomcat
+git->maven->jfrog->tomcat
+dockerizing and pushing to dockerhub
+git->maven->docker(buildimage)->push todockerHub()
+dockerizing and pushing to aws ecr
+git maven docker amazon ECR
+dockerizing and pushing to aws ecr
+git maven docker jfrog
+final
+git maven docker amazon ecr aws eks give me jenkins file
+git maven docker dockerhub aws eks
+git maven docker dockerhub jfrog eks
