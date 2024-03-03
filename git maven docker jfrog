@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+    
+    environment {
+        // JFrog Artifactory credentials
+        ARTIFACTORY_USER = credentials('artifactory-user')
+        ARTIFACTORY_API_KEY = credentials('artifactory-api-key')
+        
+        // Docker Hub credentials
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials')
+        
+        // Docker image details
+        DOCKER_IMAGE_NAME = 'your-docker-image-name'
+        DOCKER_IMAGE_TAG = 'latest'
+        
+        // Maven settings file path
+        MAVEN_SETTINGS_FILE = '/path/to/settings.xml'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from Git
+                git credentialsId: 'git-credentials', url: 'your-git-repository-url'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build Maven project
+                sh "mvn -s ${MAVEN_SETTINGS_FILE} clean package"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                // Build Docker image
+                sh "docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG ."
+            }
+        }
+
+        stage('Publish Docker Image to JFrog Artifactory') {
+            steps {
+                // Login to Docker Hub
+                withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
+                }
+                
+                // Tag Docker image for JFrog Artifactory
+                sh "docker tag $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG docker.io/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
+                
+                // Push Docker image to JFrog Artifactory
+                sh "docker push docker.io/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
+            }
+        }
+    }
+}
