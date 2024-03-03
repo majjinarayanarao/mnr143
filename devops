@@ -1,5 +1,6 @@
 sonarqube
 jfrog 
+ECR
 real time 
 build and push to jfrog artifactory
 git->maven->jfrog
