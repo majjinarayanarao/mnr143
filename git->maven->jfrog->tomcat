@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    
+    environment {
+        // JFrog Artifactory credentials
+        ARTIFACTORY_USER = credentials('artifactory-user')
+        ARTIFACTORY_API_KEY = credentials('artifactory-api-key')
+
+        // Maven settings file path
+        MAVEN_SETTINGS_FILE = '/path/to/settings.xml'
+
+        // Tomcat credentials
+        TOMCAT_USER = credentials('tomcat-user')
+        TOMCAT_PASSWORD = credentials('tomcat-password')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from Git
+                git credentialsId: 'git-credentials', url: 'your-git-repository-url'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build Maven project
+                sh "mvn -s ${MAVEN_SETTINGS_FILE} clean package"
+            }
+        }
+
+        stage('Publish to Artifactory') {
+            steps {
+                // Publish artifacts to JFrog Artifactory
+                rtMavenDeployer(
+                    tool: 'maven',
+                    deployPoms: true,
+                    deployArtifacts: true,
+                    deployMavenMetadata: true,
+                    deploymentRepository: 'your-artifactory-repo',
+                    serverId: 'artifactory-server-id',
+                    credentialsId: 'artifactory-credentials-id'
+                )
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                // Deploy artifacts to Tomcat
+                withCredentials([usernamePassword(credentialsId: 'tomcat-credentials-id', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASSWORD')]) {
+                    sh "curl -T target/your-war-file.war http://$TOMCAT_USER:$TOMCAT_PASSWORD@your-tomcat-host:8080/manager/text/deploy?path=/your-war-file"
+                }
+            }
+        }
+    }
+}
