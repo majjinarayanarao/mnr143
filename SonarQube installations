@@ -1,0 +1,9 @@
+creation  user in sonarqube 
+administration->security->user->create it.
+
+integration the sonarqube in maven
+pom.xml
+add this into pom.xml
+photo lo undi 
+<dependences'> first photo  lopala pettali
+profile add cheyali
