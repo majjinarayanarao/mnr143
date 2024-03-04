@@ -7,3 +7,8 @@ add this into pom.xml
 photo lo undi 
 <dependences'> first photo  lopala pettali
 profile add cheyali
+key point:
+must be lts install
+sonarqube must be supported by 25
+must be 9000
+static code analysis must be used sonar
