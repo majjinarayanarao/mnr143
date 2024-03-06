@@ -1,20 +1,22 @@
 pipeline {
     agent any
+tools {
+        jdk 'jdk17'
+        maven 'maven'
+    }
     
     environment {
         // Define your environment variables here
-        DOCKER_REGISTRY_CREDENTIALS = 'docker-credentials'
-        DOCKER_IMAGE = 'your-docker-image-name'
-        ECR_REPO = 'YOUR_ECR_REPO'
-        AWS_REGION = 'YOUR_AWS_REGION'
-        CLUSTER_NAME = 'YOUR_CLUSTER_NAME'
-        NAMESPACE = 'YOUR_NAMESPACE'
+        DOCKER_REGISTRY_CREDENTIALS = 'aws'
+        DOCKER_IMAGE = 'iov'
+        ECR_REPO = 'mana'
+        AWS_REGION = 'ap-south-1'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'new', credentialsId: 'github', url: 'https://github.com/majjinarayanarao/register-app.git'
             }
         }
 
@@ -27,36 +29,17 @@ pipeline {
             }
         }
 
-        stage('Docker Build & Push') {
+         stage("Build & Push Docker Image") {
             steps {
                 script {
-                    // Build Docker image
-                    sh 'docker build -t $DOCKER_IMAGE .'
-
-                    // Login to ECR
-                    withCredentials([usernamePassword(credentialsId: DOCKER_REGISTRY_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $AWS_REGION"
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
                     }
 
-                    // Tag and push Docker image to ECR
-                    sh "docker tag $DOCKER_IMAGE:latest $AWS_REGION/$ECR_REPO:latest"
-                    sh "docker push $AWS_REGION/$ECR_REPO:latest"
-                }
-            }
-        }
-
-        stage('Deploy to EKS') {
-            steps {
-                script {
-                    // Update kubeconfig to access EKS cluster
-                    withAWS(region: AWS_REGION, credentials: 'aws-credentials') {
-                        sh "aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME"
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
                     }
-
-                    // Deploy to EKS
-                    sh "kubectl apply -f kubernetes/deployment.yaml --namespace=$NAMESPACE"
                 }
             }
-        }
-    }
-}
+       } 
