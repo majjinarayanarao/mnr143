@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_DEFAULT_REGION = 'your_region'
+        AWS_ACCOUNT_ID = 'your_account_id'
+        ECR_REPO = 'your_ecr_repo_name'
+        DOCKER_IMAGE_NAME = 'your_docker_image_name'
+        K8S_NAMESPACE = 'your_kubernetes_namespace'
+        K8S_DEPLOYMENT_NAME = 'your_kubernetes_deployment_name'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    docker.build("${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage('Push to ECR') {
+            steps {
+                script {
+                    docker.withRegistry("https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com", 'ecr:your_ecr_credentials_id') {
+                        docker.image("${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}").push("${ECR_REPO}:${env.BUILD_NUMBER}")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    kubernetesDeploy(
+                        kubeconfigId: 'your_kubeconfig_id',
+                        configs: 'your_deployment_yaml',
+                        enableConfigSubstitution: true,
+                        namespace: "${K8S_NAMESPACE}"
+                    )
+                }
+            }
+        }
+    }
+}
