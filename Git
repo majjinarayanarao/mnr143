@@ -11,6 +11,7 @@ copy from remote to local
 scp-i madam.pem ec2-user@34.112.179/home/ec2-user/murali remote to local this type in local terminal
 
 scp-i madam.pem sample.txt ec2-user@34.112.179/home/ec2-user local to remote
+ scp -i C:\Users\91913\Dropbox\PC\Downloads\madam.pem C:\Users\91913\Dropbox\PC\Downloads\sonarqube.txt ubuntu@13.232.15.163:/home/ubuntu
 
 working with sleep
 
