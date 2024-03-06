@@ -9,8 +9,7 @@ tools {
         // Define your environment variables here
         DOCKER_REGISTRY_CREDENTIALS = 'aws'
         DOCKER_IMAGE = 'iov'
-        ECR_REPO = 'mana'
-        AWS_REGION = 'ap-south-1'
+        DOCKER_USER = '591334581876.dkr.ecr.ap-south-1.amazonaws.com/mana'
     }
 
     stages {
