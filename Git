@@ -1,0 +1,45 @@
+ssh command shell secure
+
+ssh murali@publicip
+
+scp secure copy
+
+copy from local to remote
+
+copy from remote to local
+
+scp-i madam.pem ec2-user@34.112.179/home/ec2-user/murali remote to local this type in local terminal
+
+scp-i madam.pem sample.txt ec2-user@34.112.179/home/ec2-user local to remote
+
+working with sleep
+
+sleep 10 simply used wait 10 sec exit used for logout purpose
+
+host used for host publicip you will be dns name
+
+diff:used for two commads differences or compare purpose
+
+diff-side-by-side filel file2
+
+diffchecker what are changes easy see this
+
+working with less, more,
+
+cat 1s
+
+more its will be displayed matter accourding to terminal size
+
+more mana
+
+less its will be displayed matter accourding to terminal size but we are using button up and down arrow
+
+less mana
+
+we word count
+
+cat file wc -1 letter count cat file wc -W letter word
+
+cat file wc -L longest maximum word count
+
+comm murali sunil compare two file
