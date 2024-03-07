@@ -159,4 +159,43 @@ top used to see this linux process
 
 free give the total information process
 
-free-h I
+free-h 
+working with head and tail command
+head  -5 narayana display top 10 lines only
+tail used to display down 10 lines
+tail -10 narayana
+tail -2 rk
+how to craete the group
+groupadd group1
+id group
+cat /etc/group check the group craeted are not
+groupadd group2
+cat /etc/group
+groupdel group2 used to delete the group
+id murali is user
+usermod -a -G group1 murali
+id murali
+craeting and deleting user in linux
+useradd  murali
+id murali
+adduser sunil
+cat/passwd/murali this user checking
+userdel is used to murali
+userdel -r sunil must be given
+chown 
+chown user1:user1 sunil root user and root group
+chown -R root:user1 murali changes only root user
+chmod -R 777 murali
+soft link and hard link
+ln -s muni naresh l will be display in root user
+soft link 
+craete two files 
+one file delete 
+another will be worked
+ln mut
+hard link act as mirror
+any changes in one file and other file will be changed
+one file is deleted other file will be work
+hard link may be not craeted in dir
+
+
