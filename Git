@@ -108,3 +108,55 @@ kill the process
 3424 is aprocess id
 
 kill -9 3425 3425 is process id
+
+find commad
+
+find / -name amma
+
+find used to find specfic path'
+
+find /root name amma run only in root
+
+find name amma current dir
+
+find iname amma
+
+find iname su
+
+find /root -iname su
+
+i need only file
+
+find / -type finame sunil display files
+
+find/-type diname rk display only dir
+
+working with command zip
+
+zip siva.zip mi m2 creation zip file add to twofiles ml and m2
+
+unzip siva.zip
+
+unzip -1 siva.zip used for the to see data in zip file
+
+working with tar
+
+used for moving one loaction to another
+
+tar -cvf vinay.tar ml m2 m3 caretion tar add to files
+
+tar -xvf vinay.tar extracting
+
+tar-tvf vinay.tar used for displaythe contact
+
+tar -rvf vinay.tar m8 adding directly
+
+working with rpm is a redhat pacakage manager rpm
+
+rpm -ivh
+
+top used to see this linux process
+
+free give the total information process
+
+free-h I
