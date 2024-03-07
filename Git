@@ -44,3 +44,67 @@ cat file wc -1 letter count cat file wc -W letter word
 cat file wc -L longest maximum word count
 
 comm murali sunil compare two file
+
+working with env check the environment variable
+
+env
+
+echo command is used for print
+
+echo $java version
+
+how to unset envronment varaible remove
+
+unset jva_version
+
+env
+
+edy grep -i hostaname
+
+tac nothing but oppostie of cat command
+
+tac muarali
+
+locate muralifile find the location dir or file etc
+
+locate file
+
+working with ifconfig is uesd to information ip address host
+
+ifconfig
+
+nslookup you want see dns name
+
+nslookup publicip
+
+working with df
+
+df is used to display deskfile system
+
+df
+
+or df -h
+
+df -k kilobyte displayed
+
+df -m
+
+df -a all file system only
+
+du desk use
+
+du
+
+du-h
+
+du-sh
+
+ps stand for proceess id check weather running are not
+
+ps -ef grep 8080
+
+kill the process
+
+3424 is aprocess id
+
+kill -9 3425 3425 is process id
