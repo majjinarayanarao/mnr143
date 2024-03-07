@@ -197,5 +197,5 @@ hard link act as mirror
 any changes in one file and other file will be changed
 one file is deleted other file will be work
 hard link may be not craeted in dir
-
+link dir structure
 
