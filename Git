@@ -198,4 +198,14 @@ any changes in one file and other file will be changed
 one file is deleted other file will be work
 hard link may be not craeted in dir
 link dir structure
-
+dev means 
+bin means define binaries the path is usr/bin
+boot means stroe boot file
+dev means stroes devices files
+etc menans configure any thing
+home all user we can able to see
+lib means we can store lib in user level /user/lib
+opt menas software tool install
+proc means see this cpu information
+root is default dir for root
+var we can store varaible
